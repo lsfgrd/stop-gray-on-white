@@ -16,5 +16,5 @@ This is my first ever Chrome extension and I wrote it in the span of 1 hour, so 
 
 I consider the extension not usable by anyone but me if while I don't have completed the following tasks:
 
-[ ] Allow the user to configure the substitute color to their preference;
-[ ] Toggle to persist the change for a given website;
+- [ ] Allow the user to configure the substitute color to their preference;
+- [ ] Toggle to persist the change for a given website;
