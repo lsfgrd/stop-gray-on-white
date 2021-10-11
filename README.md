@@ -18,7 +18,7 @@ TBA
 ### Known issues
 - Can't change the page color once it's changed once;
 - Extension doesn't consider alpha values in RGB colors, i.e. if you have ``rgb(0, 0, 0, 0.4)`` it won't consider as "too light";
-- Probably a lot more.
+- Probably a lot more;
 
 ### Needed improvements to-do list
 
@@ -29,4 +29,5 @@ I consider the extension not usable by anyone but me while I haven't completed t
 
 
 ### Nice-to-have improvements
-- [ ] Make grey/light the tolerance level configurable.
+- [ ] Make the grey/light tolerance level configurable;
+- [ ] Allow to change the text font and size;
