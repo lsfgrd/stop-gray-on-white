@@ -24,7 +24,7 @@ TBA
 
 I consider the extension not usable by anyone but me while I haven't completed the following tasks:
 
-- [ ] Allow the user to configure the substitute color to their preference;
+- [X] Allow the user to configure the substitute color to their preference;
 - [ ] Toggle to persist the change for a given website;
 
 
