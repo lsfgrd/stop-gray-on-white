@@ -1,37 +1,77 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { CompactPicker } from 'react-color';
+import ActionButton from './components/ActionButton';
+import ColorCircle from './components/ColorCircle';
+import { CHECKERED_GRADIENT, COLORS } from './config/constants';
+import { getCurrentTab, reloadTab } from './helpers/chrome-helpers';
 
 const Popup = () => {
   const [color, setColor] = useState<string>('rgb(0, 0, 0)');
+  const [colorName, setColorName] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [tab, setTab] = useState<chrome.tabs.Tab>();
 
-  const changeBackground = () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const tab = tabs[0];
-      if (tab.id) {
-        chrome.tabs.sendMessage(tab.id, {
-          color,
-        });
-      }
-    });
+  useEffect(() => {
+    const getTab = async () => {
+      setTab(await getCurrentTab());
+    };
+
+    getTab();
+  }, []);
+
+  const submit = () => {
+    if (tab?.id) {
+      setIsLoading(true);
+      chrome.tabs.sendMessage(
+        tab.id,
+        { color },
+        () => {
+          setIsLoading(false);
+        },
+      );
+    }
   };
 
   return (
     <>
-      <form onSubmit={changeBackground}>
-        <div>
-          <h3>Choose a different text color:</h3>
-        </div>
-        <CompactPicker
-          color={color}
-          onChangeComplete={(selectedColor) => {
-            setColor(selectedColor.hex);
+      <div>
+        <h3>Choose a different text color:</h3>
+      </div>
+      {COLORS.map(({ hex, name, selected }) => (
+        <ColorCircle
+          key={hex}
+          onClick={() => {
+            setColor(hex);
+            setColorName(name);
           }}
+          hex={hex}
+          name={name}
+          defaultChecked={selected}
         />
-        <button style={{ marginTop: '10px' }} type="submit" className="action-button">
-          Fix website
-        </button>
-      </form>
+      ))}
+      <ColorCircle
+        onClick={() => {
+          setColor('');
+          setColorName('custom');
+        }}
+        style={{ background: (colorName === 'custom' && color) || CHECKERED_GRADIENT }}
+      />
+      {colorName}
+      {colorName === 'custom' ? (
+        <input
+          onChange={({ target }) => {
+            setColor(target.value);
+          }}
+          placeholder="Custom color (HEX)"
+          type="text"
+        />
+      ) : null}
+      <ActionButton onClick={submit}>
+        {isLoading ? 'Fixing ;)' : 'Fix website'}
+      </ActionButton>
+      <ActionButton onClick={reloadTab}>
+        Reload
+      </ActionButton>
     </>
   );
 };

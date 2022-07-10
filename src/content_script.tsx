@@ -67,6 +67,8 @@ const setColor = (element: HTMLElement, color: string): void => {
 };
 
 chrome.runtime.onMessage.addListener(({ color }, sender, sendResponse) => {
+  console.log('message triggered');
+
   if (color) {
     const all = document.getElementsByTagName('*') as any as HTMLElement[];
 
@@ -74,6 +76,8 @@ chrome.runtime.onMessage.addListener(({ color }, sender, sendResponse) => {
       const element = all[i];
       setColor(element, color);
     }
+
+    console.log('Finished running');
 
     sendResponse(`Change color to ${color}`);
   } else {

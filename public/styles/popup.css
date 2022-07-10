@@ -1,6 +1,26 @@
 body {
-  width: 300px;
-  height: 200px;
+  width: 200px;
+}
+
+.color {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  cursor: pointer;
+  /* box-shadow: 0 0 0 10px #FFF; */
+}
+
+/* .color:checked::before {
+  content: '';
+  border: 2px solid #000;
+} */
+
+.color:checked {
+  box-shadow: 0 0 0 2px #FFF, 0 0 0 4px #000;
 }
 
 .action-button {
