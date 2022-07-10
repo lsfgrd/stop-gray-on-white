@@ -35,7 +35,17 @@
           "some": ["nesting", "id"]
         }
       }
-    ]
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+   ]
   },
   "globals": {
     "chrome": "readonly"
